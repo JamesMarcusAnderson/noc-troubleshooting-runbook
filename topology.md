@@ -33,6 +33,12 @@ needs them; Packet Tracer's simulated devices work as-is).
   `192.168.20.0/24`.
 - **SW1**: `Fa0/5` = access VLAN 10; `Gi0/1` = trunk allowing VLANs 10, 20.
   **SW2**: `Fa0/5` = access VLAN 10; `Gi0/1` = trunk.
+- **Router-on-a-stick:** R1's `Gi0/0` faces SW1's trunk, so the LAN gateway
+  lives on subinterfaces — `Gi0/0.10` (`encapsulation dot1Q 10`,
+  `ip address 192.168.10.1 255.255.255.0`) and `Gi0/0.20`
+  (`encapsulation dot1Q 20`, no IP address; voice VLAN unused). R2 mirrors
+  this on its LAN side: `Gi0/1.10` (`encapsulation dot1Q 10`,
+  `ip address 192.168.20.1 255.255.255.0`) faces SW2's trunk.
 - **Static routes:** R1: `ip route 192.168.20.0 255.255.255.0 10.0.0.2`;
   R2: `ip route 192.168.10.0 255.255.255.0 10.0.0.1`.
 - Verify the baseline before breaking anything: PC-A → PC-B ping works,
