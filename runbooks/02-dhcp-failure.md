@@ -68,14 +68,15 @@ show ip dhcp conflict
 Zero discovers received suggests the requests never reach the server process;
 conflicts suggest an overlapping static assignment.
 
-**7. Verify the SVI / gateway interface for the segment is up:**
+**7. Verify the gateway (sub)interface for the segment is up:**
 
 ```
 show ip interface brief
 ```
 
-If VLAN 10's SVI is down, DHCP relay/broadcast never reaches the server. (If
-the SVI is down, work runbook 05 first.)
+If the gateway subinterface (R1 `Gi0/0.10`, R2 `Gi0/1.10`) is down,
+DHCP relay/broadcast never reaches the server. (If it is down, work
+runbook 05 first.)
 
 ## Root cause
 
@@ -118,7 +119,8 @@ ipconfig /renew
 
 ## How to break this in the lab
 
-Pick one:
+Pick one (run it on the router whose segment you want to break —
+R1 serves PC-A, R2 serves PC-B):
 
 ```
 configure terminal
@@ -135,4 +137,6 @@ ip dhcp pool VLAN10
 end
 ```
 
-Then renew on PC-A and PC-B and watch both land on APIPA.
+Then renew on that router's PC and watch it land on APIPA. Note: R1 and R2
+run independent DHCP pools, so a break on R1 only affects PC-A's segment —
+PC-B (served by R2's pool) is unaffected, and vice versa.
