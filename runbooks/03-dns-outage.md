@@ -39,8 +39,8 @@ ipconfig /all
 cat /etc/resolv.conf
 ```
 
-Confirm the client is pointed at the expected DNS server (e.g. the lab's
-`192.168.10.53` or the DHCP-advertised resolver).
+Confirm the client is pointed at the expected DNS server (in this lab,
+the DHCP-advertised resolver, `8.8.8.8`).
 
 **4. Test the same query against a known-good public resolver:**
 
@@ -55,11 +55,13 @@ client, not the path.
 **5. Query the suspect server directly:**
 
 ```
-dig @192.168.10.53 google.com
-nslookup google.com 192.168.10.53
+dig @192.0.2.53 google.com
+nslookup google.com 192.0.2.53
 ```
 
-Timeout here isolates the fault to that server (or the path to it).
+(`192.0.2.53` is the dead TEST-NET-1 resolver from the lab break below —
+substitute whatever suspect IP step 3 showed you.) Timeout here isolates the
+fault to that server (or the path to it).
 
 **6. Check whether something in the path is blocking DNS (router CLI):**
 
