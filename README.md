@@ -10,6 +10,19 @@ Each scenario is designed to be built and broken on purpose in a virtual lab
 (GNS3, EVE-NG, or Cisco Packet Tracer), so you can practice the full
 detect → diagnose → fix → verify loop without touching anything real.
 
+Every runbook follows the same structure — **Symptoms → Diagnosis commands →
+Root cause → Fix → Verification** — and pairs with a single reusable topology
+and an incident-ticket template, so the whole workflow mirrors how a real
+operations team documents and closes out faults.
+
+## Repository structure
+
+| Path | What it is |
+|---|---|
+| `runbooks/` | The five scenario playbooks (`01`–`05`), each self-contained |
+| `topology.md` | The one lab topology that supports all five scenarios, plus how to break each one |
+| `templates/incident-ticket.md` | Copy-per-incident ticket: scope, symptoms, diagnosis log, root cause, fix, verification, timeline |
+
 ## The five scenarios
 
 | # | Runbook | One-line symptom |
